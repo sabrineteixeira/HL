@@ -10,9 +10,9 @@ public abstract class Pessoa {
     public Pessoa(String nome, String cpf, String telefone, String email) {
         super();
         this.nome = validarTextoObrigatorio(nome, "nome");
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
+        this.cpf = validarTextoObrigatorio(cpf, "CPF");
+        this.telefone = textoOuVazio(telefone);
+        this.email = textoOuVazio(email);
     }
 
     public String getNome() {
@@ -60,11 +60,14 @@ public abstract String exibirResumo();
     
     protected static String validarTextoObrigatorio(String valor, String campo){
         if (valor == null || valor.trim().isEmpty()){
-            throw new IllegalArgumentException("O campo " + campo + " é obrigatório.");{
+            throw new IllegalArgumentException("O campo " + campo + " é obrigatório.");
+            }
                 return valor.trim();
             }
-        }
-    }
+
+private static String textoOuVazio(String valor){
+    return valor == null ? "" : valor.trim();
+}
 
 }
 
